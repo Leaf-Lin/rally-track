@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "description": "Track querying dense vector index with random vectors with dfs_query_then_fetch",
+  "operations": [
+    {
+      "name": "hybrid-search",
+      "operation-type": "search",
+      "cache": false,
+      "param-source": "random_hybrid",
+      "index": "{{index}}"
+    }
+  ],
+  "challenges": [
+    {
+      "name": "dryrun",
+      "default": true,
+      "schedule": [
+        {
+          "operation": "hybrid-search",
+          "clients": 1,
+          "warmup-iterations": 0,
+          "iterations": 1
+        }
+      ]
+    },
+    {
+      "name": "real",
+      "default": false,
+      "schedule": [
+        {
+          "operation": "hybrid-search",
+          "clients": 100,
+          "warmup-iterations": 100,
+          "iterations": 1000
+        }
+      ]
+    }
+  ]
+}
